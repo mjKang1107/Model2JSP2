@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+
+	//중첩 if문
+	
+/*	if(조건문){ true
+		if(조건문){ true
+			
+			...
+			
+		}
+		
+		
+	} */
+	
+	//로그인 로직
+	// 아이디 - o
+	//		-> 비밀번호 비교 o => 로그인 성공
+	//					 x => 비밀번호 오류
+	//		- x
+	//		-> 비회원 -> 회원가입로직
+	
+/*	var userID = "itwill001";
+	var userPW = "1234";
+	
+	prompt("아이디를 입력하시오.");
+	prompt("비밀번호를 입력하시오.");
+	
+	var inputID = prompt("아이디를 입력하시오.");
+	var inputPW = prompt("비밀번호를 입력하시오.");
+	
+	
+	if(userID == inputID) {
+		document.write("비밀번호를 입력하시오.");
+		if(userPW == inputPW) {
+			alert(inputID+"님 환영합니다!");
+			location.reload(); //페이지 새로고침
+		}else{
+			alert("비밀번호 오류!");	
+		}
+	}else{
+		confirm("비회원입니다. 회원가입 하시겠습니까?");
+	} */
+	
+	
+	// 선택문 ( switch - case 문)
+	
+/*	switch (비교대상-변수) {
+	case value: 특정값만 비교
+		실행문작성
+		break; 실행하지 않게 멈추는 동작
+
+	case value: 
+		실행문작성
+		break; 
+		
+	case value: 
+		실행문작성
+		break; 
+		
+	default: == else 케이스가 아닌 나머지
+		break;
+	} */
+	
+	// 해당 케이스를 만나서 실행 후 break 구문을 실행했을때 종료
+	// default 구문을 실행 후 종료(구문의 끝)
+	// 해당 케이스를 만나서 실행 후 break 구문을 실행안하는 경우
+	// 다음 케이스를 모두 실행 (케이스 해당여부 상관X) 다음 break문을 찾을때까지
+	
+	
+	/* var num = "안녕";
+	
+	switch (num) { //숫자(정수,실수),문자(영문자,한글) 
+
+	case "안녕":
+		alert("정답!");
+		//break; 없으면 다음 break때까지 실행시킴 헬로우까지 나오고 끝남** 
+	case "hello":
+		alert("정답! -hello" );
+		break;
+	case 10:
+		alert("정답! -10");
+		break;
+	case 9:
+		alert("정답! -9");
+		break;
+	case 8:
+		alert("정답! -8");
+		break;
+	case 7:
+		alert("정답!- 7");
+		break;
+	case 6:
+		alert("정답 - 6");
+		break;
+	default:
+		alert("해당사항없음");
+	}
+	
+	alert("실행완료!"); */
+	
+	//학생의 성적처리 프로그램
+	// 90~100 A  90~99 / 100
+	// 80~89 B
+	// 70~79 C
+	// 60~69 D
+	// 0~59 F
+	
+	var score = 85;	
+	
+	var tmp = Math.floor(score/10);
+	//임시변수
+	//alert("tmp : " + tmp);
+	//중복되는건 삭제
+	
+	var grade = "";
+	
+	switch (tmp) {
+	case  10:
+	case  9:
+		grade = "A";
+	 //alert("A");
+	break;
+	case  8:
+		grade = "B";
+	 //alert("B");
+	break;
+	case  7:
+		grade = "C";
+	 //alert("C");
+	break;
+	case  6:
+		grade = "D";
+		 //alert("D");
+		break;
+	default:
+		grade = "F";
+		//alert("F");
+	}
+	
+	alert(grade);
+	
+	// alert 을 한번만 표시하려면..? 변수를 담아놓고 마지막에 한번 실행하면된다....
+			
+	
+</script>
+</head>
+
+
+
+<body>
+
+<h1>WebContent/js1/test6.html</h1>
+
+</body>
+</html>

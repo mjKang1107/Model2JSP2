@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+
+//무한반복문(무한루프)
+// => 찾고자 하는 답을 계속해서 찾아야할때 사용
+
+
+/* for(; ;) {
+	document.write("무한 루프!");
+} */
+
+/* for(;true;) {
+	
+} */
+
+/* while(true) {
+	
+
+} */
+
+/* do{
+	
+	
+}while(true); */
+
+// 보조 제어문 : break; continue문
+// break문: 가장 가까운 반복문 하나 탈출
+// => 무한루프와 같이 사용
+// continue문: 반복문에서만 사용가능
+// => 해당 코드 실행없이 다음 반복문으로 진행(스킵)
+
+
+	for(i=1;i<=10;i++){
+	document.write(i+" ");
+		if(i==3) {
+			break; 
+		}
+		
+	}
+	document.write("<hr>");
+	
+	for(i=1;i<=10;i++){
+		if(i==3) {
+			continue; 
+		}
+		document.write(i+" ");	
+	}
+	
+
+	//중첩 for문(이중for문)
+	/*for(초기식;조건식;증감식) {
+		실행코드
+		for(초기식;조건식;증감식) {
+			실행코드
+		
+		}
+		실행코드
+		
+	}*/
+	
+	document.write("<hr>");
+	
+	
+	for(var i=1;i<=5;i++) {
+		for(var j=1;j<=5;j++) {
+			document.write("i = " +i+ ", j="+j+ "<br>");
+			
+	
+		}
+		document.write("<hr>");
+	}
+	
+	document.write("<hr>");
+	
+	// 구구단
+	// 2~9단
+	
+	//[2단]
+	// 2*1 =2
+	// ....
+	// 2*9 =18
+	// [3단]
+	//.....[9단]
+	
+	
+	for(var n=2;n<=9;n++) {
+		document.write("["+n+"단]<br>");
+		for(var i=1;i<=9;i++){
+			document.write(n + "*" + i + " = " + (n*i)+"<br>");
+					
+		}
+	
+	} 
+	
+	
+	document.write("<hr>");
+	
+	//별그리기
+	// 1. 
+	/*
+	
+	*
+	*
+	*
+	*
+	*
+	
+	*/
+	
+	/*document.write("* <br>");
+	document.write("* <br>");
+	document.write("* <br>");
+	document.write("* <br>");
+	document.write("* <br>");*/
+	
+	//2. 5*5
+	//*****
+	//*****
+	//*****
+	//*****
+	//*****
+
+	
+	for(var s=0;s<5;s++) {
+			for(var ss=0;ss<5;ss++) {
+				document.write(" * ");
+				
+			}
+			document.write("<br>");
+			
+	}
+	
+	
+	document.write("<hr>");
+	
+	
+	for(var s=0;s<5;s++) {
+		for(var ss=0;ss<4;ss++) {
+			document.write(" * ");
+			
+		}
+		//document.write("<br>");
+		document.write("<font color='red'> * </font><br>");
+}
+
+	document.write("<hr>");
+	
+	
+	/* 3.
+	*
+	**
+	***
+	****
+	*****
+	*/
+	
+	
+	
+	for(var s=0;s<5;s++){
+		for(var ss=0; ss < s ;ss++) {
+			document.write(" * ");
+			
+		}
+		
+		document.write("* <br>");
+		
+	}
+	
+	
+	document.write("<hr>");
+	
+	/* 4.
+	*****
+	****
+	***
+	**
+	*
+	*/
+	
+	for(var s=4; s>=0 ;s--){
+		for(var ss=0; ss < s ;ss++) {
+			document.write(" * ");
+			
+			
+		}
+		
+		document.write("* <br>");
+		
+		
+	}
+	
+	
+	document.write("<hr>");
+	
+	//표그리기
+	
+	// 1~15숫자를 담아놓은 표그리기
+	var t = "<table border='1'>";
+	var num = 1;
+	for(var i=0;i<5;i++) {
+		t += "<tr>";
+		for(var j=0;j<3;j++) {
+			t += "<td>" + num+ "</td>"
+			num++;
+		}
+		t += "</tr>";
+		
+	}
+
+	t += "</table>";
+	
+document.write(t);
+	
+	
+	
+	
+	
+	
+</script>
+
+
+</head>
+<body>
+
+<h1>WebContent/js1/test8.html</h1>
+
+
+</body>
+</html>

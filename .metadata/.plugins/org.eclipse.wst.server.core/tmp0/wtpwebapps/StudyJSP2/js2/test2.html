@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+//자바스크립트는 '객체' 기반의 언어
+//객체(object) : 내 눈앞에 보이는 모든 대상
+// => 객체 추상화(구체화) : 내가 객체로 프로그래밍에서 사용할 대상들을 선택
+// => 객체 정보를 정의 : 객체의 기능(메서드-함수) / 객체의 속성(변수)
+// => 객체를 생성 후 사용 (메모리에 올린다-로드)
+
+// ex) TV 
+// 기능 : 전원 on/off, 소리 up/down , 채널u/d , ...
+// 속성 : 크기, 색상, 브랜드, 화질, 가격....
+
+// new 연산자 : 객체를 생성하는 연산(객체를 메모리에 올리는 작업-인스턴스화 시킨다.)
+// 생성자 : 객체를 만들때 객체의 속성(변수)을 초기화 하는 함수
+//			함수의 첫글자가 대문자(=>객체), 객체명()
+
+//객체 생성시 참조변수(인스턴스명,객체변수)에는 객체의 주소가 저장
+
+	var TV = new Object();
+	
+	TV.size = 50;
+	TV.price = 200;
+	
+	document.write("티비의 크기는 "+ TV.size+ "인치 입니다.<br>");
+	document.write("티비의 가격은 "+ TV.price+ "만원 입니다.<br>");
+
+	// * 객체 생성시 참조변수에 객체의 주소(메모리) 저장
+	// * 객체는 new 연산자를 사용할때 마다
+	// 새로운 메모리 공간에 생성됨 (메모리 주소를 다르게 사용, 참조변수의 값이 다르다.)
+	// (제품이름은 같지만 시리얼넘버가 다른 각각의 제품이다!)
+	
+	var LGTV = new Object();
+	
+	LGTV.size = 100; 
+	LGTV.price = 300;	
+	
+	var LGTV1 = new Object();
+	
+	LGTV.size = 100; 
+	LGTV.price = 300;	
+	
+	LGTV1.off = function(){
+		document.write("전원 off<br>");
+		
+	}
+	LGTV1.on = function(){
+		document.write("전원 on <br>");
+		
+	}
+	
+	
+	document.write("티비의 크기는 "+ LGTV.size+ "인치 입니다.<br>");
+	document.write("티비의 가격은 "+ LGTV.price+ "만원 입니다.<br>");
+	
+	LGTV1.off();
+ 	LGTV1.on();
+
+ 	document.write("<hr>");
+ 	
+ 	//2개의 다른 스마트폰
+ 	//속성 브랜드 모델명 색상 가격
+	//기능 전원 on/off, 통화
+	
+
+	var p1 = new Object();
+	var p2 = new Object();
+ 	
+ 	
+ 	p1.brand = "애플";
+ 	p1.model = 8;
+ 	p1.color = "gold";
+ 	p1.price = 130;
+ 	
+ 	p2.brand = "갤럭시";
+ 	p2.model = "S20";
+ 	p2.color = "black";
+ 	p2.price = 150;
+ 	
+ 	document.write("핸드폰1의 브랜드는 "+ p1.brand+ " 입니다.<br>");
+ 	document.write("핸드폰1의 모델은 "+ p1.model+ " 입니다.<br>");
+ 	document.write("핸드폰1의 색상은 "+ p1.color+ " 입니다.<br>");
+ 	document.write("핸드폰1의 가격은 "+ p1.price+ "만원 입니다.<br>");
+ 	
+ 	document.write("핸드폰2의 브랜드는 "+ p2.brand+ " 입니다.<br>");
+ 	document.write("핸드폰2의 모델은 "+ p2.model+ " 입니다.<br>");
+ 	document.write("핸드폰2의 색상은 "+ p2.color+ " 입니다.<br>");
+ 	document.write("핸드폰2의 가격은 "+ p2.price+ "만원 입니다.<br>");
+ 	
+ 	p1.on = function(){
+ 		document.write(p1.model+" 전원 off<br>");
+ 		
+ 	}
+ 	
+ 	p2.off = function(){
+ 		document.write(p2.model+" 전원 on<br>");
+ 		
+ 	}
+ 	
+ 	p1.on();
+ 	p2.off();
+ 	
+ 	p1.ring = function(){
+ 		document.write(p1.model+" 통화 ring<br>");
+ 		
+ 	}
+ 	
+ 	p1.ring();
+ 	
+ 	p2.ring = function(){
+ 		document.write(p2.model+" 통화 ring<br>");
+ 		
+ 	}
+ 	
+ 	p2.ring();
+ 	
+ 	
+ 	// 자바스크립트
+ 	// - 내장객체
+ 	// => 기본적으로 제공되는 객체들(문자-String), (날짜-date) , (배열-Array), (수학-Math)
+	// - 브라우저 객체 모델( BOM: Browser Object Model )
+ 	// => 브라우저에 내장되어있는 객체들(window, screen, location, history, navigator...)
+ 	// - 문서 객체 모델( DOM: Document Object Model )
+ 	// => HTML 코드로 구성되어 있는 객체 	
+ 	
+ 	
+ 	
+</script>
+</head>
+<body>
+<h1>WebContent/js2/test2.html</h1>
+</body>
+</html>

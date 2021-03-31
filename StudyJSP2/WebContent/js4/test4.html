@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+function fun1(){
+		//
+	//window.document.폼태그.select 이름.속성
+	alert("name : " +document.fr.subject.name);
+	//alert("name : " +document.fr.options[0].name);
+	//select태그에 포함되어있는 옵션의 개수
+	alert("length : " +document.fr.subject.length);
+ 	alert("type : " +document.fr.subject.type);
+ 	alert("selectedIndex : " +document.fr.subject.selectedIndex);
+		
+}
+
+function fun2(){
+		//select 선택지의 속성
+	//window.document.폼태그.select 이름.options[0].속성	
+	alert("value : " +document.fr.subject.options[2].value);
+	alert("text : " +document.fr.subject.options[2].text);
+	alert("selected : " +document.fr.subject.options[2].selected); //선택되었는지 true,false 타입으로 알려줌
+}
+
+function fun3(){
+
+	if(document.fr.subject.options[0].selected){
+		document.fr.subject.focus();
+		alert("선택하세요");
+		return;
+	}
+	
+	document.fr.submit(); //일반 submit일때
+	
+}
+
+function fun4(){
+
+	if(document.fr.subject.options[0].selected){
+		document.fr.subject.focus();
+		alert("선택하세요");
+		return false;
+	}
+	
+	//onsubmit일때 
+	
+}
+
+//select의 과목을 선택했을때 선택한 과목의 이름을 출력 (alert)
+
+
+function fun5(){
+	var idx = document.fr.subject.selectedIndex
+	alert(document.fr.subject.options[idx].text + "가(이) 선택되었습니다.");
+		
+	
+}	
+
+
+
+</script>
+</head>
+<body>
+<h1>WebContent/js4/test.html</h1>
+
+<fieldset>
+	<form action="" name="fr" onsubmit="return fun4()">
+		과목을 선택하시오.
+		<!--  size="3" multiple="multiple" -->
+		<select name="subject" onchange="fun5()">
+			<option value="">선택하시오</option>
+			<option value="java">자바</option>
+			<option value="web">웹</option>
+			<option value="jsp">자바스크립트</option>
+			<option value="db">디비</option>
+		</select>
+		
+			<input type="submit" value="전송(submit)">
+			
+		<hr>
+		
+		<input type="button" value="select 속성 확인하기" onclick="fun1()">	
+		<input type="button" value="select 속성 확인하기2" onclick="fun2()">		
+		
+		<hr>
+		<!-- select 선택이 안된경우 페이지 이동x,
+			과목 선택된 경우 페이지 이동 후 정보 전달.
+		 -->
+		<input type="button" value="데이터 선택 후 페이지 이동" onclick="fun3()">
+	</form>
+</fieldset>
+
+</body>
+</html>
