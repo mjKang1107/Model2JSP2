@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>  
-    <h1>WebContent/JSP2/scopePro2.jsp</h1>
+    <h1>WebContent/JSP2/ScopePro2.jsp</h1>
     
     아이디 : <%=request.getParameter("id")%> <br>   
     비밀번호 : <%=request.getParameter("pw") %><br>

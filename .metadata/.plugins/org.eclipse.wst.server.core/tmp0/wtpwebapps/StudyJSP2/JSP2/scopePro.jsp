@@ -47,23 +47,44 @@
   
    1. a 태그 사용 <br>
     파라미터값 전달 가능  +
-     영역객체 : session,application정보만 사용가능 <br>
-   <a href="ScopePro2.jsp?id=<%=id%>&pw=1234">scopePro2.jsp 페이지 이동</a>
+     영역객체 : session,application 정보만 사용가능 <br>
+   <a href="ScopePro2.jsp?id=<%=id%>&pw=1234">ScopePro2.jsp 페이지 이동</a>
   
   <hr>
   
   2. javascript 사용 <br>
       파라미터값 전달 가능  +
-     영역객체 : session,application정보만 사용가능 <br>
+     영역객체 : session,application 정보만 사용가능 <br>
   <script type="text/javascript">
-      alert('ScopePro2.jsp 페이지로 이동');
-      location.href="ScopePro2.jsp?id=<%=id%>&pw=1234";  
+      //alert('ScopePro2.jsp 페이지로 이동');
+      //location.href="ScopePro2.jsp?id=<%=id%>&pw=1234";  
   </script>
   
+  3. JSP 사용 <br>
+  
+  <%
+  		System.out.println("scopePro.jsp 페이지 실행! ");
+  		//response.sendRedirect("ScopePro2.jsp?id="+id+"&pw=1234");
+  		// "ScopePro2.jsp?id=" + "아이디"
+  
+  %>
+  
+  4. JSP 액션태그 (forward방식 이동) <br>
+  포워딩 방식 이동 : 페이지 이동 시 request, response 내장객체를 포함해서 이동하는 방식 <br>
+  			A -> B
+  페이지 주소 : A 그대로 <br>
+  페이지 화면 : B 바뀜 <br>
+  => 페이지 주소 변경X , 페이지 화면 변경O , request, response 가지고 이동<br>
   
   
+    파라미터 전달 가능 +
+   영역객체 : request, session, application 정보만 사용가능
   
+  <%-- <jsp:forward page="ScopePro2.jsp?pw=1234">  </jsp:forward>--%>
+  	<jsp:forward page="ScopePro2.jsp">
+  	<jsp:param value="1234567" name="pw"/>
   
+  </jsp:forward>
      
   
   
