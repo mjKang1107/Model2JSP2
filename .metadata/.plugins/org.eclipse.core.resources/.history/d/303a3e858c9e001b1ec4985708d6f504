@@ -1,0 +1,18 @@
+package com.itwillbs.board;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class BoardDAO {
+	//Data Access Object : DB 데이터 처리 객체
+	// => DB에 관련된 모든 동작을 수행하는 객체
+	
+	private Connection conn = null;
+	private PreparedStatement pstmt = null;
+	
+	// 글쓰기 동작 => 메서드
+	
+	
+	
+	
+}
