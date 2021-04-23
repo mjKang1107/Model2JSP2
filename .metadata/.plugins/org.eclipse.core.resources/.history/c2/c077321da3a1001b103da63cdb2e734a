@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<context>
+	<Resource
+		name="jdbc/mysqlDB"
+		auth=""
+		type=""
+		driverClassName=""
+		username=""
+		password=""
+		url=""
+		maxWait=""
+	/>
+
+
+
+</context>

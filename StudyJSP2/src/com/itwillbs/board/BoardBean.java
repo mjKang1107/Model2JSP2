@@ -11,9 +11,9 @@ public class BoardBean {
 	private String pass;
 	private String subject;
 	private String content;
-	private String readcount;
+	private int readcount;
 	private int re_ref;
-	private int re_lef;
+	private int re_lev;
 	private int re_seq;
 	private Date date;
 	private String ip;
@@ -48,10 +48,10 @@ public class BoardBean {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getReadcount() {
+	public int getReadcount() {
 		return readcount;
 	}
-	public void setReadcount(String readcount) {
+	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
 	public int getRe_ref() {
@@ -60,11 +60,11 @@ public class BoardBean {
 	public void setRe_ref(int re_ref) {
 		this.re_ref = re_ref;
 	}
-	public int getRe_lef() {
-		return re_lef;
+	public int getRe_lev() {
+		return re_lev;
 	}
-	public void setRe_lef(int re_lef) {
-		this.re_lef = re_lef;
+	public void setRe_lev(int re_lev) {
+		this.re_lev = re_lev;
 	}
 	public int getRe_seq() {
 		return re_seq;
@@ -93,7 +93,7 @@ public class BoardBean {
 	@Override
 	public String toString() {
 		return "BoardBean [num=" + num + ", name=" + name + ", pass=" + pass + ", subject=" + subject + ", content="
-				+ content + ", readcount=" + readcount + ", re_ref=" + re_ref + ", re_lef=" + re_lef + ", re_seq="
+				+ content + ", readcount=" + readcount + ", re_ref=" + re_ref + ", re_lev=" + re_lev + ", re_seq="
 				+ re_seq + ", date=" + date + ", ip=" + ip + ", file=" + file + "]";
 	}
 	

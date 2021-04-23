@@ -88,17 +88,99 @@
 	
 	=> 프로젝트 요구사항 파악=> DB 테이블 생성 => 코드 작성
 	
+   CREATE TABLE `jspdb`.`itwill_board` (
+  `num` INT NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
+  `pass` VARCHAR(100) NOT NULL,
+  `subject` VARCHAR(500) NOT NULL,
+  `content` VARCHAR(2000) NOT NULL,
+  `readcount` INT NULL,
+  `re_ref` INT NULL,
+  `re_lev` INT NULL,
+  `re_seq` INT NULL,
+  `date` DATE NULL,
+  `ip` VARCHAR(45) NULL,
+  `file` VARCHAR(100) NULL,
+  PRIMARY KEY (`num`));
+	
+	*예외 : 일반적이지 않은 실행 상태
+	*예외 처리
+	try ~ catch ~ finally구문
+	
+	try{
+	예외가 발생할수도 있는 코드 작성(할지 안할지 모르는.. 발생가능성이 높은 코드)
+	}catch(Exception 객체){
+	발생한 예외에 대한 처리 -> 에러코드 출력
+	}finally{
+	예외여부와 상관없이 반드시 한번 실행되어야 하는 코드 작성
+	 => 자원해제
+	}
+	
+	정상코드 : try 시작(전부 실행) -> try 끝 -> finally시작 -> 끝
+	문제코드 : try 시작 -> 문제 발생 -> catch()시작 -> finally 시작 -> 끝
 	
 	
+	*커넥션풀(Connection Pool) : 미리 연결정보(connection)을 생성해서
+	저장 후 사용(pool) -> 사용 후 반납
 	
+	*서비스() 1개당 - 1개의 Connection 사용
+	*커넥션의 개수를 제한
+	*관리객체가 사용 후 자원해제(회수)
 	
+	1) 웹브라우저에서 요청
+	2) 할당될 커넥션 객체가 있는지 확인
+	3) 객체가 있는 경우
+	 3-1) 커넥션 할당
+	 3-2) 커넥션 객체 사용(sql실행)
+	 3-3) 커넥션 반납
+	 
+	4) 객체가 없는 경우 
+	 4-1) 커넥션 객체가 반환될때 까지 대기
+	 4-2) 임시 커넥션 객체를 생성	
 	
+	http://commons.apache.org/
+	commons-dbcp2-2.8.0-bin.zip
+	commons-collections4-4.4-bin.zip
+	commons-pool2-2.9.0-bin.zip
 	
+	=> WEB-INF /lib복사
 	
+	-META-INF /context.xml 파일 생성
+	=> 디비연결에 필요한 정보를 작성
 	
+		<Resource
+		name=" 해당 연결의 이름 "  -바꿈
+		auth=" 컨테이너 자원 관리자  : Application/Container"
+		type=" javax.sql.DataSource 객체 타입"
+		driverClassName=" 드라이버 이름" -바꿈
+		username=" 사용자명" -바꿈
+		password=" 사용자 비밀번호" -바꿈
+		url=" DB접속 URL" -바꿈
+		maxWait=" 5000" -> 5초 (1/1000초)
+		/>
 	
+	=>DAO파일에서 디비 연결동작
 	
+	-사용중인 프로젝트의 정보를 가져오는 객체를 생성
+	Context initCTX = new InitialContext();
+			
+	-저장한 context.xml파일의 정보를 불러오는 메서드 실행
+	-디비연결정보를 저장하는 객체에 파일의 정보를 저장		
+		
+	(객체 2개로 초기화)
+	 Context envCTX = (Context) initCTX.lookup("java:comp/env");
+	                             +
+	 DataSource ds = (DataSource) envCTX.lookup("jdbc/mysqlDB");
 	
+
+    (객체 1개로 초기화)	
+	DataSource ds =
+	(DataSource) initCTX.lookup("java:comp/env/jdbc/mysqlDB");
+	                             [    고정         ][    context.xml 파일 이름 속성      ]						
+								
+								
+	- ds 객체를 사용해서 디비 연결							
+	conn = ds.getConnection();
 	
 	
 	
