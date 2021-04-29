@@ -162,7 +162,7 @@ public class BoardDAO {
 			pstmt.setString(4, bb.getSubject());
 			pstmt.setString(5, bb.getContent());
 			pstmt.setInt(6, bb.getReadcount());
-			pstmt.setInt(7, num); //re_ref에 글번호 num 저장
+			pstmt.setInt(7, num); // re_ref에 글번호 num 저장
 			pstmt.setInt(8, bb.getRe_lev());
 			pstmt.setInt(9, bb.getRe_seq());
 			pstmt.setString(10, bb.getIp());
@@ -289,9 +289,8 @@ public class BoardDAO {
 	}
 	// getBoardList()
 	
-	
-	//getBoardList(startRow,pageSize);
-	public ArrayList getBoardList(int startRow, int pageSize){
+	// getBoardList(startRow,pageSize)
+	public ArrayList getBoardList(int startRow,int pageSize){
 		// DB데이터 1row 정보를 BoardBean 저장 -> ArrayList 한칸에 저장
 		
 		// 게시판의 글정보를 원하는만큼 저장하는 가변길이 배열
@@ -306,19 +305,23 @@ public class BoardDAO {
 			// 1,2 드라이버로드, 디비연결
 			conn = getConnection();
 			// 3 sql 구문 & pstmt 객체 
-			// 글 정보 정렬 - re_ref 값을 최신글 위쪽으로 정렬(내림차순)
-			//			- re_seq 값을 사용 (오름차순)
-			//			- limit a,b (a시작행-1, b개수)
-			//			ex) 1번글 -> 0번 인덱스
+			//   글 정보 정렬 - order by
+			//            - re_ref 값을 최신글 위쪽으로 정렬 (내림차순)
+			//            - re_seq 값을 사용 (오름차순)
+			//            - limit a,b   (a 시작행-1,b 개수)
+			//            ex) 1번글 -> 0번 인덱스			
+			
+			
 			//sql= "select * from itwill_board";
 			sql= "select * from itwill_board "
-					+ "order by re_ref desc,re_seq asc limit ?,?";
+					+ "order by re_ref desc, re_seq asc "
+					+ "limit ?,?";			
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			//?
-			pstmt.setInt(1,startRow-1);
-			pstmt.setInt(2, pageSize);
+			// ?
+			pstmt.setInt(1, startRow-1);
+			pstmt.setInt(2, pageSize);		
 			
 			// 4 sql 실행
 			rs = pstmt.executeQuery();
@@ -359,11 +362,11 @@ public class BoardDAO {
 		
 		return boardList;
 	}
-	//getBoardList(startRow,pageSize);
+	// getBoardList(startRow,pageSize)
 	
-	//updateReadcount(num)
-	
+	// updateReadcount(num)
 	public void updateReadcount(int num){
+		
 		try {
 			//1,2 디비연결
 			conn = getConnection();
@@ -434,10 +437,181 @@ public class BoardDAO {
 	}
 	// getBoard(num)
 	
+	// updateBoard(bb)
+	public int updateBoard(BoardBean bb){
+		int check = -1;
+		
+		try {
+			// 1,2 디비연결
+			conn = getConnection();
+			// 3 sql 작성 (select-본인확인) & pstmt 객체
+			sql = "select pass from itwill_board where num=?";
+			pstmt = conn.prepareStatement(sql);
+			// ? 
+			pstmt.setInt(1, bb.getNum());
+			
+			// 4 sql 실행	
+			rs = pstmt.executeQuery();
+			// 5 데이터 처리
+			if(rs.next()){
+				// 글이 있음
+				if(bb.getPass().equals(rs.getString("pass"))){
+					// 글 수정시 입력된 비밀번호,글작성시 입력된 비밀번호(DB) 동일
+					// 본인 글 확인
+					// 3 sql (update-글수정) & pstmt 객체 
+					sql = "update itwill_board set subject=?,content=? where num=?";
+					pstmt = conn.prepareStatement(sql);
+					
+					// ? 
+					pstmt.setString(1, bb.getSubject());
+					pstmt.setString(2, bb.getContent());
+					pstmt.setInt(3, bb.getNum());
+					
+					// 4 sql 실행
+					check = pstmt.executeUpdate();
+					
+					//check = 1;
+				}else{
+					// 잘못된 비밀번호 (글은 있음)
+					check=0;
+				}
+			}else{
+				// 글이 없음
+				check = -1;
+			}
+			
+			System.out.println(" 글 수정 완료! "+check);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+		return check;
+	}
+	// updateBoard(bb)
 	
-
-
-
+	
+	// deleteBoard(bb)
+	public int deleteBoard(BoardBean bb){
+		int check = -1;
+		
+		try {
+			// 1,2 디비연결
+			conn = getConnection();
+			// 3 sql 생성(select) & pstmt 객체 생성
+			sql="select pass from itwill_board where num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bb.getNum());
+			
+			// 4 sql 실행
+			rs = pstmt.executeQuery();
+			// 5 데이터 처리
+			if(rs.next()){
+				if(bb.getPass().equals(rs.getString("pass"))){
+					// 3 sql 생성(delete) & pstmt 객체 생성
+					sql="delete from itwill_board where num=?";
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, bb.getNum());
+					
+				    // 4 sql 실행
+					check = pstmt.executeUpdate();
+				}else{
+				   check = 0 ;	
+				}				
+			}else{
+				check = -1;
+			}
+			
+			System.out.println(" 글 삭제 완료! "+check);
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+		return check;
+	}
+	// deleteBoard(bb)
+	
+	// reInsertBoard(bb)
+	public void reInsertBoard(BoardBean bb){
+		
+		//1)답글 작성 번호(num)계산
+		 //1,2디비연결
+			conn = getConnection();
+		 //3.sql구문 & pstmt객체
+			sql="select max(num) from itwill_board";
+			
+			int num = 0;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+		//4. sql실행
+			rs = pstmt.executeQuery();
+		//5. 데이터 처리		
+			if(rs.next()){
+				//rs.getInt("max(num)");
+			num = rs.getInt(1)+1;
+				
+			}	
+			
+			System.out.println("답글 번호 계산 완료 : " +num);
+			
+				//2)답글 순서 재배치(정렬)
+				//->re_ref(같은 그룹)안에서 re_seq(순서)를 정렬
+				//						기존의 순서값보다 큰값이 있으면 순서를 1증가 
+				sql = "update itwill_board set re_seq = re_seq+1 where re_ref=? and re_seq>?";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bb.getRe_ref());
+				pstmt.setInt(2 ,bb.getRe_seq());
+				
+				//sql실행
+				pstmt.executeUpdate();
+				
+				System.out.println("답글 정렬 완료!");
+				
+				//3)답글 쓰기
+				sql ="insert into itwill_board(num,name,pass,subject,content,"
+						+ "readcount,re_ref,re_lev,re_seq,date,ip,file) "
+						+ "values(?,?,?,?,?,?,?,?,?,now(),?,?)";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				pstmt.setString(2, bb.getName());
+				pstmt.setString(3, bb.getPass());
+				pstmt.setString(4, bb.getSubject());
+				pstmt.setString(5, bb.getContent());
+				pstmt.setInt(6, bb.getReadcount());
+				pstmt.setInt(7, bb.getRe_ref()); //re_ref(원글의 그룹번호 사용)
+				pstmt.setInt(8, bb.getRe_lev() +1); //re_lev +1
+				pstmt.setInt(9, bb.getRe_seq() +1); //re_seq +1
+				pstmt.setString(10, bb.getIp());
+				pstmt.setString(11, bb.getFile());
+				
+				//sql실행
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				closeDB();
+			}
+		
+		
+	}
+	// reInsertBoard(bb)
+	
+	
+	
+	
 	
 	
 	

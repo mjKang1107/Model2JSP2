@@ -33,13 +33,13 @@
 		<item value="true" key="WizardZipFileResourceExportPage1.STORE_COMPRESS_CONTENTS_ID"/>
 		<item value="true" key="WizardZipFileResourceExportPage1.STORE_CREATE_STRUCTURE_ID"/>
 		<list key="WizardZipFileResourceExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="C:\Users\ITWILL\Desktop\1.zip"/>
 			<item value="C:\Users\ITWILL\Desktop\11.zip"/>
 			<item value="C:\Users\ITWILL\Desktop\45646.zip"/>
 			<item value="C:\Users\ITWILL\Desktop\1324.zip"/>
 			<item value="C:\Users\ITWILL\Desktop\3.zip"/>
 			<item value="C:\Users\ITWILL\Desktop\2.zip"/>
 			<item value="C:\Users\ITWILL\Desktop\01.zip"/>
-			<item value="C:\Users\ITWILL\Desktop\1.zip"/>
 			<item value="C:\Users\ITWILL\Desktop\20210302-1.zip"/>
 		</list>
 	</section>
