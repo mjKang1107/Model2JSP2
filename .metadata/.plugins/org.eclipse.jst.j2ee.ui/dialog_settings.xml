@@ -2,11 +2,18 @@
 <section name="Workbench">
 	<item value="true" key="J2EE_EXPORT_OVERWRITE"/>
 	<item value="true" key="J2EE_EXPORT_SOURCE"/>
+	<list key="J2EE_IMPORT_null">
+		<item value="C:\Users\ITWILL\Desktop\project_kmj .war"/>
+		<item value="C:\Users\ITWILL\Desktop\project_kmj.war"/>
+	</list>
 	<list key="MRU_RUNTIME_STORE">
 		<item value="Apache Tomcat v8.5"/>
 		<item value="NULL_RUNTIME"/>
 	</list>
 	<list key="J2EE_EXPORT_JST_WEB">
+		<item value="C:\Users\ITWILL\Desktop\강민정_프로젝트\project_kmj.war"/>
+		<item value="C:\Users\ITWILL\Desktop\project_kmj.war"/>
+		<item value="C:\Users\ITWILL\Desktop\project_kmj_210527.war"/>
 		<item value="C:\Users\ITWILL\Desktop\StudyJSP2.war"/>
 	</list>
 </section>

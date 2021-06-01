@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -21,7 +23,6 @@ public class MemberDAO {
 		try {
 			//Context 객체를 생성 (프로젝트 정보를 가지고있는객체)
 			Context initCTX = new InitialContext();
-			
 			// DB연동 정보를 불러오기(context.xml)
 			DataSource ds =
 			(DataSource) initCTX.lookup("java:comp/env/jdbc/model2DB");
@@ -52,15 +53,19 @@ public class MemberDAO {
 		}
 	}
 	
-	//insertMember(mdto)
+	// insertMember(mdto)
 	public void insertMember(MemberDTO mdto){
+		
+		
 		try {
-		//1,2 디비연결
-		conn = getConnection();
-		//3 sql작성 & pstmt객체
-		sql = "insert into itwill_member (id,pass,name,age,gender,email,reg_date) values (?,?,?,?,?,?,?)";
+			// 1,2 디비연결
+			conn = getConnection();
+			// 3 sql 작성 & pstmt 객체
+			sql = "insert into itwill_member (id,pass,name,age,gender,email,reg_date) "
+					+ " values(?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			//?
+			
+			// ? 
 			pstmt.setString(1, mdto.getId());
 			pstmt.setString(2, mdto.getPass());
 			pstmt.setString(3, mdto.getName());
@@ -68,133 +73,239 @@ public class MemberDAO {
 			pstmt.setString(5, mdto.getGender());
 			pstmt.setString(6, mdto.getEmail());
 			pstmt.setTimestamp(7, mdto.getReg_date());
-			//4 실행
+
+			// 4 sql 실행
 			pstmt.executeUpdate();
 			
 			System.out.println("DAO : 회원가입 완료! ");
 			
-		} catch (SQLException e) {	
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			//자원해제
+		} finally {
 			closeDB();
 		}
 		
-		
 	}
-	//insertMember(mdto)
+	// insertMember(mdto)
 	
-	//idCheck(id,pass)
+	// idCheck(id,pass)
 	public int idCheck(String id,String pass){
 		int check = -1;
+		
 		try {
-		//1,2디비연결
-		conn = getConnection();
-		//3 sql구문 & pstmt객체 생성
-		sql = "select pass from itwill_member where id=?";
-		pstmt = conn.prepareStatement(sql);
-		//?
-		pstmt.setString(1, id);
-		//4 실행
-		rs = pstmt.executeQuery();
-		//5 데이터 처리
-		if(rs.next()){
-			if(pass.equals(rs.getString("pass"))){
-				//회원 본인
-				check = 1;	
+			// 1,2 디비연결
+			conn = getConnection();
+			// 3 sql 구문 & pstmt 객체생성
+			sql = "select pass from itwill_member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			//?
+			pstmt.setString(1, id);
+			// 4 sql 실행
+			rs = pstmt.executeQuery();
+			// 5 데이터 처리 (본인확인)
+			if(rs.next()){
+				if(pass.equals(rs.getString("pass"))){
+					// 본인 
+					check = 1;
+				}else{
+					// 비밀번호 오류
+					check = 0;
+				}
 			}else{
-				//비밀번호 오류
-				check = 0;
+				// 회원정보 x
+				check = -1;
 			}
 			
-		}else{
-			//회원정보 X
-			check = -1;
-		}
-		
-		System.out.println("DAO : 로그인 처리 결과 " + check);
-		
+			System.out.println("DAO : 로그인 처리 결과 "+check);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeDB();
 		}
 		
 		return check;
 	}
+	// idCheck(id,pass)
 	
-	//idCheck(id,pass)
-	
-	//getMember(id)
+	// getMember(id)
 	public MemberDTO getMember(String id){
 		MemberDTO dto = null;
 		try {
-		//1,2 디비연결
-		getConnection();
-		//3 sql & pstmt 객체
-		sql = "select * from itwill_member where id=?";
-		pstmt = conn.prepareStatement(sql);
-		//?
-		pstmt.setString(1, id);
-		//4 실행
-		rs = pstmt.executeQuery();
-		//5 데이터 처리
-		if(rs.next()){
-			dto = new MemberDTO();
+			// 1,2 디비연결
+			conn = getConnection();
+			// 3 sql & pstmt 객체 
+			sql = "select * from itwill_member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			//? 
+			pstmt.setString(1, id);
+			// 4 sql 실행
+			rs = pstmt.executeQuery();
+			// 5 데이터 처리
+			if(rs.next()){
+				dto = new MemberDTO();
+				
+				dto.setAge(rs.getInt("age"));
+				dto.setEmail(rs.getString("email"));
+				dto.setGender(rs.getString("gender"));
+				dto.setId(rs.getString("id"));
+				dto.setName(rs.getString("name"));
+				dto.setPass(rs.getString("pass"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
+			}
 			
-			dto.setAge(rs.getInt("age"));
-			dto.setEmail(rs.getString("email"));
-			dto.setGender(rs.getString("gender"));
-			dto.setId(rs.getString("id"));
-			dto.setName(rs.getString("name"));
-			dto.setPass(rs.getString("pass"));
-			dto.setReg_date(rs.getTimestamp("reg_date"));
+			System.out.println("DAO : 회원정보 저장완료!");			
 			
-		}
-		
-		System.out.println("DAO : 회원정보 저장완료!");
-		
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
+			closeDB();
+		}
+		return dto;
+	}
+	// getMember(id)
+	
+	
+	// updateMember(dto)
+	public int updateMember(MemberDTO dto){
+		int result = -1;
+		
+		try {
+			// 1,2 디비연결
+			conn = getConnection();
+			// 3 sql구문 & pstmt 객체 생성
+			sql = "select pass from itwill_member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dto.getId());
+			
+			//4 sql 실행
+			rs = pstmt.executeQuery();
+			
+			//5 데이터 처리 
+			if(rs.next()){
+				// 아이디가 있음
+				if(dto.getPass().equals(rs.getString("pass"))){
+					// 본인 -> 정보 수정
+					// 3 sql/pstmt 객체
+					sql = "update itwill_member set name=?,age=?,gender=?,email=? where id=?";
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setString(1, dto.getName());
+					pstmt.setInt(2, dto.getAge());
+					pstmt.setString(3, dto.getGender());
+					pstmt.setString(4, dto.getEmail());
+					pstmt.setString(5, dto.getId());
+					
+					//4 sql 실행
+					result = pstmt.executeUpdate();
+					System.out.println("DAO : 회원정보 수정완료!");
+					
+				}else{
+					// 아이디는 있지만, 비밀번호 오류
+					result = 0;
+				}
+			}else{
+				// 아이디가 없음
+				result = -1;
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			closeDB();
 		}
 		
-		return dto;
-		
+		return result;
 	}
-	//getMember(id)
+	// updateMember(dto)
 	
-	//updateMember(id)
-	public MemberDTO updateMember(String id){
-		int check = -1;
-	// 1,2 디비연결
-	conn = getConnection();
-	// 3 sql 작성 (select-본인확인) & pstmt 객체
-	sql = "select pass from itwill_member where id=?";
-	pstmt = conn.prepareStatement(sql);
-	// ? 
-	pstmt.setInt(1, id);
+	
+	// deleteMember(id,pass)
+	public int deleteMember(String id,String pass){
+		int result = -1;
+		
+		try {
+			// 1,2 디비연결
+			conn = getConnection();
+			// 3 sql 구문(select) & pstmt 객체 생성
+			sql = "select pass from itwill_member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			// 4 sql 실행
+			rs = pstmt.executeQuery();
+			// 5 데이터처리
+			if(rs.next()){
+			    if(pass.equals(rs.getString("pass"))){
+			    	//   3 sql 구문(delete) & pstmt 객체
+					sql = "delete from itwill_member where id=?";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, id);
+					//   4 sql 실행			
+					result = pstmt.executeUpdate();
+			    }else{
+			       	result = 0;
+			    }
+			}else{
+				result = -1;
+			}
+			
+			System.out.println("DAO : 회원정보 삭제 완료");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+		return result;
+	}
+	// deleteMember(id,pass)
+	
+	// getMemberList()
+	public List getMemberList(){
+		List memberList = new ArrayList();
+		
+		try {
+			//1,2 디비연결
+			conn = getConnection();
+			//3 sql 작성 & pstmt 객체 생성
+			sql = "select * from itwill_member where id !='admin'";
+			pstmt = conn.prepareStatement(sql);
+			//4 sql 실행
+			rs = pstmt.executeQuery();
+			//5 데이터 처리 
+			while(rs.next()){
+				MemberDTO dto = new MemberDTO();
+				dto.setAge(rs.getInt("age"));
+				dto.setEmail(rs.getString("email"));
+				dto.setGender(rs.getString("gender"));
+				dto.setId(rs.getString("id"));
+				dto.setPass(rs.getString("pass"));
+				dto.setName(rs.getString("name"));
+				dto.setReg_date(rs.getTimestamp("reg_date"));
 				
-	// 4 sql 실행	
-	rs = pstmt.executeQuery();
-	// 5 데이터 처리
-	if(rs.next()){
-	
-	
+				//리스트한칸 -> 1명 정보 저장
+				memberList.add(dto);
+				
+			}
+			System.out.println("DAO : 모든 회원 정보 저장 완료");
 			
-			
-			
-	return dto;
-	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		return memberList;
 	}
-	//updateMember(id)
-	
-		
+	// getMemberList()
 	
 	
 	
 	
 	
 	
+
 }

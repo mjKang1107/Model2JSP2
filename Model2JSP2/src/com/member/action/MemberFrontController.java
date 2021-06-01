@@ -106,6 +106,7 @@ public class MemberFrontController extends HttpServlet {
 			System.out.println("C : /MemberLogout.me 호출");
 			// MemberLogoutAction() 객체 생성
 			action = new MemberLogoutAction();
+			
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -122,24 +123,56 @@ public class MemberFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}			
+		}
 		else if(command.equals("/MemberUpdate.me")){
 			System.out.println("C : /MemberUpdate.me 호출");
-			//DB정보를 -> 화면(view)출력 - ./member/updateForm.jsp
+			// DB정보를 -> 화면(view)출력-./member/updateForm.jsp
+			// MemberUpdateAction() 객체 생성
+			
 			action = new MemberUpdateAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			
 		}
 		else if(command.equals("/MemberUpdateProAction.me")){
 			System.out.println("C : /MemberUpdateProAction.me 호출");
-			//입력받은 정보를 DB에 저장(수정)-> 메인페이지로 이동
-			//MemberUpdateProAction()객체 생성
+			// 입력받은 정보를 DB에 저장(수정) -> 메인페이지로 이동
+			// MemberUpdateProAction() 객체 생성
 			action = new MemberUpdateProAction();
+				
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/MemberDelete.me")){
+			System.out.println("C : /MemberDelete.me 호출");
+			// 정보 입력 view -> DB 처리
+			
+			forward = new ActionForward();
+			forward.setPath("./member/deleteForm.jsp");
+			forward.setRedirect(false);			
+		}
+		else if(command.equals("/MemberDeleteAction.me")){
+			System.out.println("C : /MemberDeleteAction.me 호출");
+			// 정보를 전달받아서 DB에서 삭제 
+			// MemberDeleteAction() 객체 생성
+			action = new MemberDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}		
+		}
+		else if(command.equals("/MemberList.me")){
+			System.out.println("C : /MemberList.me 호출");
+			// DB사용해서 해당 view출력
+			// MemberListAction() 객체
+			action = new MemberListAction();
 			
 			try {
 				forward = action.execute(request, response);
