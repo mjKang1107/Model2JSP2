@@ -12,11 +12,13 @@
 <%
 	//response.sendRedirect("./MemberJoin.me");
 	//response.sendRedirect("./MemberLogin.me");
+	//메인페이지로 이동
+	response.sendRedirect("./Main.me");
 
 	//쇼핑몰-상품등록/관리/주문/장바구니..
 	
 	//관리자 - 상품등록
-	response.sendRedirect("./AdminGoodsList.ag");
+	//response.sendRedirect("./AdminGoodsList.ag");
 	
 %>
 

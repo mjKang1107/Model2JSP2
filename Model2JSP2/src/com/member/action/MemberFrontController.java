@@ -25,12 +25,12 @@ public class MemberFrontController extends HttpServlet {
 
 		// 가상주소 가져오기
 		String requestURI = request.getRequestURI();
-		System.out.println("1 : requestURI:" + requestURI);
-		// 프로젝트명(컨텍스트명)
-		String contextPath = request.getContextPath();
-		System.out.println("1 : contextPath : " + contextPath);
+		System.out.println("1 : requestURI:" + requestURI);//http://localhost:8088/Model2JSP2/MemberLogin.me
+		// 프로젝트명(컨텍스트명)                                                       
+		String contextPath = request.getContextPath();//http://localhost:8088/Model2JSP2
+		System.out.println("1 : contextPath : " + contextPath);//11
 		// 프로젝트명을 제외한 가상주소
-		String command = requestURI.substring(contextPath.length());
+		String command = requestURI.substring(contextPath.length());// /MemberLogin.me
 		System.out.println("1 : command : " + command);
 
 		/******************* 1.페이지 주소 파싱 ********************************/
@@ -88,6 +88,7 @@ public class MemberFrontController extends HttpServlet {
 			System.out.println("C : /MemberLoginAction.me 호출");
 			// DB 사용 => MemberLoginAction() 객체를 생성해야함.
 			action = new MemberLoginAction();
+			/*홧팅*/
 			System.out.println("C : 로그인처리 메소드 호출");
 			try {
 				forward = action.execute(request, response);

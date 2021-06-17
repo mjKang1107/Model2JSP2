@@ -189,9 +189,66 @@ public class AdminGoodsDAO {
 	// getGoods(num)
 	
 	
+	// modifyGoods(gdto)
+	public void modifyGoods(GoodsDTO gdto){
+		try {
+			conn = getConnection();
+			sql = "update itwill_goods set "
+					+ "category=?,name=?,price=?,color=?,amount=?,size=?,best=?,content=? "
+					+ "where num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, gdto.getCategory());
+			pstmt.setString(2, gdto.getName());
+			pstmt.setInt(3, gdto.getPrice());
+			pstmt.setString(4, gdto.getColor());
+			pstmt.setInt(5, gdto.getAmount());
+			pstmt.setString(6, gdto.getSize());
+			pstmt.setInt(7, gdto.getBest());
+			pstmt.setString(8, gdto.getContent());
+			pstmt.setInt(9, gdto.getNum());
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("DAO : 상품정보 수정 완료!");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}	
+		
+	}	
+	// modifyGoods(gdto)
 	
-	
-	
+	/**
+	 * @메서드명 : deleteGoods
+	 * @메서드 기능 : 삭제정보를 받아서 상품 삭제
+	 * @param 상품 정보num
+	 * @return 없음
+	 */
+	// deleteGoods(num)
+	public void deleteGoods(int num){
+		
+		 try {
+			 conn = getConnection();
+			 sql = "delete from itwill_goods where num=?";
+ 			 pstmt = conn.prepareStatement(sql);
+ 			 
+ 			 pstmt.setInt(1, num);
+ 			 pstmt.executeUpdate();
+ 			 
+ 			 System.out.println("DAO : 관리자 상품정보 삭제 완료!");
+ 			 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeDB();
+		}
+		
+	}
+	// deleteGoods(num)
 	
 	
 	

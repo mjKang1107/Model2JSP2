@@ -51,7 +51,7 @@
 	       <td>
 	                <a href="./AdminGoodsModify.ag?num=<%=dto.getNum()%>">수정</a>
 	                /
-	                <a href="">삭제</a>
+	                <a href="./AdminGoodsDelete.ag?num=<%=dto.getNum()%>">삭제</a>
 	       </td>
 	     </tr>
      <% }%>

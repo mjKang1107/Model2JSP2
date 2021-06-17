@@ -13,7 +13,7 @@ public class GoodsDTO {
 	private int best;
 	private String date;
 	
-	
+
 	// set/get  - alt shift s + r
 
 	public int getNum() {

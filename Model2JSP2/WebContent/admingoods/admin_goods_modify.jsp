@@ -18,7 +18,9 @@
    
    <fieldset>
      <legend> 관리자 상품수정 하기</legend>
-     <form action="./AdminGoodsModifyAction.ag" method="post" enctype="multipart/form-data">
+     <form action="./AdminGoodsModifyAction.ag" method="post">
+       <!-- 상품번호 저장 -->
+       <input type="hidden" name="num" value="<%=dto.getNum() %>">            
        <table border="1">
          <tr>
            <td>카테고리</td>
@@ -97,12 +99,12 @@
          <tr>
            <td>인기상품</td>
            <td>
-              <input type="radio" name="best" 
+              <input type="radio" name="best" value="1" 
                 <%if(dto.getBest()==1){ %>
                  checked
                 <%} %>
               >예 
-              <input type="radio" name="best"
+              <input type="radio" name="best" value="0"
                  <%if(dto.getBest()==0){ %>
                  checked
                 <%} %>

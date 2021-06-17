@@ -87,6 +87,20 @@ public class AdminGoodsFrontController extends HttpServlet{
 				e.printStackTrace();
 			}			
 		}
+		else if(command.equals("/AdminGoodsDelete.ag")){
+			System.out.println("C : /AdminGoodsDelete.ag 호출");
+			// 상품정보를 바로 DB에서 삭제 -> 상품리스트 이동
+			// AdminGoodsDeleteAction() 객체 생성
+			action = new AdminGoodsDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 		
 		
